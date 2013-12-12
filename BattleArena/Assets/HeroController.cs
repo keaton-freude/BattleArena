@@ -10,10 +10,11 @@ public class HeroController : MonoBehaviour
 	private bool charging;
 	private Vector3 ChargeLocation;
 	public float chargeMultiplier;
+	public ParticleSystem chargeEffect;
 	// Use this for initialization
 	void Start () 
 	{
-		//CurrentTargetLocation = this.transform.position;
+		chargeEffect.enableEmission = false;
 	}
 	
 	// Update is called once per frame
@@ -30,8 +31,7 @@ public class HeroController : MonoBehaviour
 				// CHARGE!
 				ChargeLocation = new Vector3(hit.point.x, 0f, hit.point.z);
 				charging = true;
-
-				Debug.Log ("Charging! Location: " + ChargeLocation.ToString());
+				chargeEffect.enableEmission = true;
 			}
 		}
 
@@ -103,6 +103,7 @@ public class HeroController : MonoBehaviour
 			if (transform.position == ChargeLocation)
 			{
 				charging = false;
+				chargeEffect.enableEmission = false;
 				animation["run"].speed = 1f;
 			}
 		}
@@ -125,6 +126,7 @@ public class HeroController : MonoBehaviour
 			Debug.Log (collision.gameObject.name);
 			charging = false;
 			animation["run"].speed = 1f;
+			chargeEffect.enableEmission = false;
 		}
 
 	}
